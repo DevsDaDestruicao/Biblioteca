@@ -1,7 +1,7 @@
 package com.example.Biblioteca.controller;
 
-import com.example.Biblioteca.model.Autor;
-import com.example.Biblioteca.repository.AutorRepository;
+import com.example.Biblioteca.dto.AutorDTO;
+import com.example.Biblioteca.service.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,16 @@ import java.util.List;
 public class AutorController {
 
     @Autowired
-    private AutorRepository autorRepository;
+    private AutorService autorService;
 
     @GetMapping
-    public ResponseEntity<List<Autor>>listarAutores(){
-        return ResponseEntity.ok(autorRepository.findAll());
+    public ResponseEntity<List<AutorDTO>>listarAutores(){
+        return ResponseEntity.ok(autorService.listarTodos());
     }
 
     @PostMapping
-    public ResponseEntity<Autor>cadastrarAutor(@RequestBody Autor autor){
-        Autor salvo=autorRepository.save(autor);
+    public ResponseEntity<AutorDTO>cadastrarAutor(@RequestBody AutorDTO autorDTO){
+        AutorDTO salvo=autorService.salvar(autorDTO);
         return new ResponseEntity<>(salvo, HttpStatus.CREATED);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.Biblioteca.controller;
 
-import com.example.Biblioteca.model.Editora;
-import com.example.Biblioteca.repository.EditoraRepository;
+import com.example.Biblioteca.dto.EditoraDTO;
+import com.example.Biblioteca.service.EditoraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,16 @@ import java.util.List;
 public class EditoraController {
 
     @Autowired
-    private EditoraRepository editoraRepository;
+    private EditoraService editoraService;
 
     @GetMapping
-    public ResponseEntity<List<Editora>>listarEditoras(){
-        return ResponseEntity.ok(editoraRepository.findAll());
+    public ResponseEntity<List<EditoraDTO>>listarEditoras(){
+        return ResponseEntity.ok(editoraService.listarTodos());
     }
 
     @PostMapping
-    public ResponseEntity<Editora>cadastrarEditora(@RequestBody Editora editora){
-        Editora salva=editoraRepository.save(editora);
+    public ResponseEntity<EditoraDTO>cadastrarEditora(@RequestBody EditoraDTO editoraDTO){
+        EditoraDTO salva=editoraService.salvar(editoraDTO);
         return new ResponseEntity<>(salva, HttpStatus.CREATED);
     }
 }
