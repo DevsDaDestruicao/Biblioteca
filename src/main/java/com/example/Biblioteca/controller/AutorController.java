@@ -26,4 +26,16 @@ public class AutorController {
         AutorDTO salvo=autorService.salvar(autorDTO);
         return new ResponseEntity<>(salvo, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AutorDTO>atualizarAutor(@PathVariable Long id, @RequestBody AutorDTO autorDTO){
+        AutorDTO atualizado=autorService.atualizar(id, autorDTO);
+        return ResponseEntity.ok(atualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>excluirAutor(@PathVariable Long id){
+        autorService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }

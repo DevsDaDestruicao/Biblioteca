@@ -31,4 +31,16 @@ public class LivroController {
         LivroDTO salvo=livroService.salvar(livroDTO);
         return new ResponseEntity<>(salvo, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LivroDTO>atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroDTO){
+        LivroDTO atualizado=livroService.atualizar(id,livroDTO);
+        return ResponseEntity.ok(atualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>excluirLivro(@PathVariable Long id){
+        livroService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }

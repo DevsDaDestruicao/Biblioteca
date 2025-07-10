@@ -56,4 +56,32 @@ public class LivroService {
         Livro salvo=livroRepository.save(livro);
         return new LivroDTO(salvo);
     }
+
+    public LivroDTO atualizar(Long id, LivroDTO dto){
+        Livro livroExistente=livroRepository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Livro nao encontrado com o ID: "+id));
+
+        Autor autor=autorRepository.findById((dto.getAutorId()))
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Autor não encontrado com o ID: "+dto.getAutorId()));
+
+        Editora editora=editoraRepository.findById(dto.getEditoraId())
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Editora nao encontrada com o ID: "+dto.getEditoraId()));
+
+        livroExistente.setTitulo(dto.getTitulo());
+        livroExistente.setAno(dto.getAno());
+        livroExistente.setDisponivel(dto.isDisponivel());
+        livroExistente.setAutor(autor);
+        livroExistente.setEditora(editora);
+
+        Livro atualizado=livroRepository.save(livroExistente);
+        return new LivroDTO(atualizado);
+    }
+
+    public void excluir (Long id){
+        if(!livroRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Livro não econtrado com o ID: "+id);
+        }
+
+        livroRepository.deleteById(id);
+    }
 }

@@ -35,4 +35,22 @@ public class AutorService {
         return autorRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Autor não encontrado"));
     }
+
+    public AutorDTO atualizar(Long id, AutorDTO dto){
+        Autor autorExistente=autorRepository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Autor não encontrado com o ID: "+id));
+
+        autorExistente.setNome(dto.getNome());
+
+        Autor atualizado=autorRepository.save(autorExistente);
+        return new AutorDTO(atualizado);
+    }
+
+    public void excluir(Long id){
+        if(!autorRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Autor não encontrado com o ID: "+id);
+        }
+
+        autorRepository.deleteById(id);
+    }
 }

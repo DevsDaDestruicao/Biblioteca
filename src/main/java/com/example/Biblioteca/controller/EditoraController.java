@@ -26,4 +26,16 @@ public class EditoraController {
         EditoraDTO salva=editoraService.salvar(editoraDTO);
         return new ResponseEntity<>(salva, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EditoraDTO>atualizarEditora(@PathVariable Long id, @RequestBody EditoraDTO editoraDTO){
+        EditoraDTO atualizada=editoraService.atualizar(id, editoraDTO);
+        return ResponseEntity.ok(atualizada);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void>excluirEditora(@PathVariable Long id){
+        editoraService.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }

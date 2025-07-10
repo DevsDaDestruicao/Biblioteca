@@ -35,4 +35,22 @@ public class EditoraService {
         return editoraRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Editora não encontrada"));
     }
+
+    public EditoraDTO atualizar(Long id, EditoraDTO dto){
+        Editora editoraExistente=editoraRepository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Editora não encontrado com o ID: "+id));
+
+        editoraExistente.setNome(dto.getNome());
+
+        Editora atualizada=editoraRepository.save(editoraExistente);
+        return new EditoraDTO(atualizada);
+    }
+
+    public void excluir(Long id){
+        if(!editoraRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Editora não encontrada com o ID "+id);
+        }
+
+        editoraRepository.deleteById(id);
+    }
 }
