@@ -1,6 +1,7 @@
 package com.example.Biblioteca.controller;
 
 import com.example.Biblioteca.dto.AutorDTO;
+import com.example.Biblioteca.model.Autor;
 import com.example.Biblioteca.service.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,12 @@ public class AutorController {
     @GetMapping
     public ResponseEntity<List<AutorDTO>>listarAutores(){
         return ResponseEntity.ok(autorService.listarTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AutorDTO>buscarAutorPorId(@PathVariable Long id){
+        AutorDTO autorDTO=autorService.buscarPorId(id);
+        return ResponseEntity.ok(autorDTO);
     }
 
     @PostMapping

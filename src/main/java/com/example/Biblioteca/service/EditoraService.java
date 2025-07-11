@@ -24,6 +24,12 @@ public class EditoraService {
                 .collect(Collectors.toList());
     }
 
+    public EditoraDTO buscarPorId(Long id){
+        Editora editora=editoraRepository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Editora não encontrada com o ID: "+id));
+        return new EditoraDTO(editora);
+    }
+
     public EditoraDTO salvar(EditoraDTO dto){
         Editora editora=new Editora();
         editora.setNome(dto.getNome());

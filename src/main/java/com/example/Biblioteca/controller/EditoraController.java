@@ -21,6 +21,12 @@ public class EditoraController {
         return ResponseEntity.ok(editoraService.listarTodos());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EditoraDTO>buscarEditoraPorId(@PathVariable Long id){
+        EditoraDTO editoraDTO=editoraService.buscarPorId(id);
+        return ResponseEntity.ok(editoraDTO);
+    }
+
     @PostMapping
     public ResponseEntity<EditoraDTO>cadastrarEditora(@RequestBody EditoraDTO editoraDTO){
         EditoraDTO salva=editoraService.salvar(editoraDTO);

@@ -24,6 +24,12 @@ public class AutorService {
                 .collect(Collectors.toList());
     }
 
+    public AutorDTO buscarPorId(Long id){
+        Autor autor=autorRepository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Autor não encontrado com o ID: "+id));
+        return new AutorDTO(autor);
+    }
+
     public AutorDTO salvar(AutorDTO dto){
         Autor autor = new Autor();
         autor.setNome(dto.getNome());
