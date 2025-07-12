@@ -24,15 +24,15 @@ public class LivroController {
     //GET /livros
     //Lista todos os livros cadastrados
     @GetMapping
-    public ResponseEntity<List<LivroDTO>>listarLivros(){
+    public ResponseEntity<List<LivroDTO>> listarLivros(){
         //Chama o serviço para buscar todos os livros e retornar um status 200(OK)
         return ResponseEntity.ok(livroService.listarTodos());
     }
 
     //GET /livros/{id}
-    //Lista todos os livros cadastrados por id
+    //Busca um livro cadastrado pelo id
     @GetMapping("/{id}")
-    public ResponseEntity<LivroDTO>buscarLivroPorId(@PathVariable Long id){
+    public ResponseEntity<LivroDTO> buscarLivroPorId(@PathVariable Long id){
         //Usa o service para buscar o livro pelo ID
         //Se não existir, o service lança uma exceção com status 404
         return ResponseEntity.ok(livroService.buscarPorId(id));
@@ -41,7 +41,7 @@ public class LivroController {
     //POST /livros
     //Cadastra um novo livro com base nas informações enviadas pelo cliente
     @PostMapping
-    public ResponseEntity<LivroDTO>cadastrarLivro(@RequestBody LivroDTO livroDTO){
+    public ResponseEntity<LivroDTO> cadastrarLivro(@RequestBody LivroDTO livroDTO){
         //Chama o service para salvar o livro
         //Retorna o livro salvo com status 201(CREATED)
         LivroDTO salvo=livroService.salvar(livroDTO);
@@ -49,9 +49,9 @@ public class LivroController {
     }
 
     //PUT /livros/{id}
-    //Atualiza todos os livros cadastrados por id
+    //Atualiza um livro cadastrado pelo id
     @PutMapping("/{id}")
-    public ResponseEntity<LivroDTO>atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroDTO){
+    public ResponseEntity<LivroDTO> atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroDTO){
         LivroDTO atualizado=livroService.atualizar(id,livroDTO);
         return ResponseEntity.ok(atualizado);
     }
@@ -59,7 +59,7 @@ public class LivroController {
     //DELETE /livros/{id}
     //Exclui um livro cadastrado por id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void>excluirLivro(@PathVariable Long id){
+    public ResponseEntity<Void> excluirLivro(@PathVariable Long id){
         livroService.excluir(id);
         return ResponseEntity.noContent().build();
     }

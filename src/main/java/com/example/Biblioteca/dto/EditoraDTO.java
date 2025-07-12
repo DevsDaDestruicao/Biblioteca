@@ -6,11 +6,13 @@
 
 package com.example.Biblioteca.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class EditoraDTO {
     private Long id;
+    @NotBlank(message = "O nome é obrigatório")
     private String nome;
 
     public EditoraDTO(){}

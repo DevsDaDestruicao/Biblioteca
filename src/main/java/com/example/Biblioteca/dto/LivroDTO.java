@@ -6,13 +6,20 @@
 
 package com.example.Biblioteca.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class LivroDTO {
     private Long id;
+    @NotBlank(message = "O título é obrigatório")
     private String titulo;
+    @NotNull(message = "O ano é obrigatório")
+    @Min(value = 1000, message = "O ano deve ser maior que 1000")
     private int ano;
+
     private boolean disponivel;
 
     // Esses IDs representam os relacionamentos com autor e editora
