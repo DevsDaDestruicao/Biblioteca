@@ -11,32 +11,37 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// Classe marcda como um serviço do Spring
 @Service
 public class AutorService {
 
     @Autowired
     private AutorRepository autorRepository;
 
+    // Lista todos os atores e converte para DTO
     public List<AutorDTO> listarTodos(){
         return autorRepository.findAll()
                 .stream()
-                .map(AutorDTO::new)
+                .map(AutorDTO::new) // converte cada Autor em AutorDTO
                 .collect(Collectors.toList());
     }
 
+    // Busca um autor por ID
     public AutorDTO buscarPorId(Long id){
         Autor autor=autorRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Autor não encontrado com o ID: "+id));
         return new AutorDTO(autor);
     }
 
+    // Salva um novo autor usando os dados do DTO
     public AutorDTO salvar(AutorDTO dto){
         Autor autor = new Autor();
         autor.setNome(dto.getNome());
         Autor salvo = autorRepository.save(autor);
-        return new AutorDTO(salvo);
+        return new AutorDTO(salvo); // retorna o DTO do autor salvo
     }
 
+    // Busca um por ID e não retorna nada
     public Autor buscarEntidadePorId(Long id){
         return autorRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Autor não encontrado"));

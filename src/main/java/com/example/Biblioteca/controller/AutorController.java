@@ -18,7 +18,7 @@ public class AutorController {
     private AutorService autorService;
 
     @GetMapping
-    public ResponseEntity<List<AutorDTO>>listarAutores(){
+    public ResponseEntity<List<AutorDTO>>listarAutores() {
         return ResponseEntity.ok(autorService.listarTodos());
     }
 

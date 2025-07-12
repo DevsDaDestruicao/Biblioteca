@@ -27,12 +27,14 @@ public class LivroService {
     @Autowired
     private EditoraRepository editoraRepository;
 
+    // Lista todos os livros cadastrados e converte para DTO
     public List<LivroDTO>listarTodos(){
         return livroRepository.findAll().stream()
                 .map(LivroDTO::new)
                 .collect(Collectors.toList());
     }
 
+    // Busca um livro pelo ID e retorna o DTO
     public LivroDTO buscarPorId(Long id){
         Livro livro=livroRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Livro não encontrado"));
